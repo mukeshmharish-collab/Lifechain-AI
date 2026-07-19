@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeChain AI – Digital Emergency Medical Passport</title>
+  <meta name="description" content="LifeChain AI is a digital emergency medical passport platform that gives hospitals instant, QR-based access to a patient's critical medical information during emergencies.">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- QR Code Generation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-screen__heartbeat">
+      <i class="fa-solid fa-heart-pulse"></i>
+    </div>
+    <p class="loading-screen__text">Initializing LifeChain AI...</p>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+
+  <!-- Cursor Glow -->
+  <div id="cursor-glow" class="cursor-glow"></div>
+
+  <!-- Header / Navigation -->
+  <header id="site-header" class="site-header">
+    <nav id="main-nav" class="main-nav" aria-label="Primary navigation">
+      <div class="main-nav__logo" id="logo">
+        <i class="fa-solid fa-heart-circle-bolt"></i>
+        <span class="main-nav__logo-text">LifeChain <span class="main-nav__logo-accent">AI</span></span>
+      </div>
+
+      <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="hamburger-btn__bar"></span>
+        <span class="hamburger-btn__bar"></span>
+        <span class="hamburger-btn__bar"></span>
+      </button>
+
+      <ul id="nav-links" class="nav-links">
+        <li class="nav-links__item"><a href="#home" class="nav-links__link">Home</a></li>
+        <li class="nav-links__item"><a href="#features" class="nav-links__link">Features</a></li>
+        <li class="nav-links__item"><a href="#how-it-works" class="nav-links__link">How It Works</a></li>
+        <li class="nav-links__item"><a href="#emergency-access" class="nav-links__link">Emergency Access</a></li>
+        <li class="nav-links__item"><a href="#blood-donor-network" class="nav-links__link">Blood Donor Network</a></li>
+        <li class="nav-links__item"><a href="#hospital-locator" class="nav-links__link">Hospitals</a></li>
+        <li class="nav-links__item"><a href="#faq" class="nav-links__link">FAQ</a></li>
+        <li class="nav-links__item"><a href="#about" class="nav-links__link">About</a></li>
+        <li class="nav-links__item"><a href="#contact" class="nav-links__link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-actions">
+        <button id="login-btn" class="btn btn--ghost">Login</button>
+        <button id="register-btn" class="btn btn--primary">Register</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="hero-section__particle-layer" id="particle-layer" aria-hidden="true"></div>
+      <div class="hero-section__glow-layer" id="glow-layer" aria-hidden="true"></div>
+
+      <div class="hero-section__container">
+        <div class="hero-section__content">
+          <span class="hero-section__eyebrow">Digital Emergency Medical Passport</span>
+          <h1 class="hero-section__heading">When Every Second Matters, Your Medical Identity Speaks For You.</h1>
+          <p class="hero-section__description">
+            LifeChain AI gives every patient a secure, QR-based medical passport that hospitals can scan
+            instantly during emergencies — revealing critical allergies, conditions, medications, and
+            emergency contacts in seconds, even when you can't speak for yourself.
+          </p>
+          <div class="hero-section__cta-group">
+            <button id="register-now-btn" class="btn btn--primary btn--large">
+              <i class="fa-solid fa-user-plus"></i> Register Now
+            </button>
+            <button id="watch-demo-btn" class="btn btn--outline btn--large">
+              <i class="fa-solid fa-circle-play"></i> Watch Demo
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-section__visual">
+          <div class="hero-section__illustration" id="hero-illustration" aria-hidden="true">
+            <!-- Placeholder for futuristic medical illustration -->
+          </div>
+          <div class="hero-section__qr-card" id="floating-qr-card">
+            <div class="hero-section__qr-placeholder" id="hero-qr-canvas" aria-hidden="true"></div>
+            <span class="hero-section__qr-label">Scan for Emergency Profile</span>
+          </div>
+          <div class="hero-section__heartbeat-line" id="heartbeat-line" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <a href="#stats" class="hero-section__scroll-indicator" aria-label="Scroll down">
+        <i class="fa-solid fa-chevron-down"></i>
+      </a>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="stats-section">
+      <div class="stats-section__container">
+        <article class="stats-card" id="stat-registered-users">
+          <div class="stats-card__icon"><i class="fa-solid fa-users"></i></div>
+          <h3 class="stats-card__number" data-count="120000">0</h3>
+          <p class="stats-card__description">Registered Users</p>
+        </article>
+
+        <article class="stats-card" id="stat-hospitals-connected">
+          <div class="stats-card__icon"><i class="fa-solid fa-hospital"></i></div>
+          <h3 class="stats-card__number" data-count="850">0</h3>
+          <p class="stats-card__description">Hospitals Connected</p>
+        </article>
+
+        <article class="stats-card" id="stat-blood-donors">
+          <div class="stats-card__icon"><i class="fa-solid fa-droplet"></i></div>
+          <h3 class="stats-card__number" data-count="45000">0</h3>
+          <p class="stats-card__description">Blood Donors</p>
+        </article>
+
+        <article class="stats-card" id="stat-lives-protected">
+          <div class="stats-card__icon"><i class="fa-solid fa-shield-heart"></i></div>
+          <h3 class="stats-card__number" data-count="9000">0</h3>
+          <p class="stats-card__description">Lives Protected</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">Why LifeChain AI</span>
+        <h2 class="section-heading__title">Everything Your Emergency Profile Needs</h2>
+        <p class="section-heading__subtitle">A complete digital health identity, built for the moments that matter most.</p>
+      </div>
+
+      <div class="features-section__grid">
+        <article class="feature-card" id="feature-digital-passport">
+          <div class="feature-card__icon"><i class="fa-solid fa-id-card-clip"></i></div>
+          <h3 class="feature-card__title">Digital Medical Passport</h3>
+          <p class="feature-card__description">A single secure identity that carries your complete medical profile wherever you go.</p>
+        </article>
+
+        <article class="feature-card" id="feature-qr-identity">
+          <div class="feature-card__icon"><i class="fa-solid fa-qrcode"></i></div>
+          <h3 class="feature-card__title">QR Medical Identity</h3>
+          <p class="feature-card__description">A unique QR code that unlocks your emergency profile in an instant scan.</p>
+        </article>
+
+        <article class="feature-card" id="feature-emergency-profile">
+          <div class="feature-card__icon"><i class="fa-solid fa-notes-medical"></i></div>
+          <h3 class="feature-card__title">Emergency Medical Profile</h3>
+          <p class="feature-card__description">Critical information organized for fast decisions under pressure.</p>
+        </article>
+
+        <article class="feature-card" id="feature-blood-network">
+          <div class="feature-card__icon"><i class="fa-solid fa-hand-holding-droplet"></i></div>
+          <h3 class="feature-card__title">Blood Donor Network</h3>
+          <p class="feature-card__description">Connect instantly with verified donors nearby when blood is needed urgently.</p>
+        </article>
+
+        <article class="feature-card" id="feature-emergency-contacts">
+          <div class="feature-card__icon"><i class="fa-solid fa-phone-volume"></i></div>
+          <h3 class="feature-card__title">Emergency Contacts</h3>
+          <p class="feature-card__description">Automatic alerts to the people you trust the moment your profile is accessed.</p>
+        </article>
+
+        <article class="feature-card" id="feature-nearby-hospitals">
+          <div class="feature-card__icon"><i class="fa-solid fa-map-location-dot"></i></div>
+          <h3 class="feature-card__title">Nearby Hospitals</h3>
+          <p class="feature-card__description">Locate the closest connected hospitals with live directions and contact info.</p>
+        </article>
+
+        <article class="feature-card" id="feature-medical-history">
+          <div class="feature-card__icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <h3 class="feature-card__title">Medical History</h3>
+          <p class="feature-card__description">A running timeline of conditions, treatments, and past medical events.</p>
+        </article>
+
+        <article class="feature-card" id="feature-secure-storage">
+          <div class="feature-card__icon"><i class="fa-solid fa-lock"></i></div>
+          <h3 class="feature-card__title">Secure Data Storage</h3>
+          <p class="feature-card__description">End-to-end encrypted storage that keeps your health data private and protected.</p>
+        </article>
+
+        <article class="feature-card" id="feature-ai-ready">
+          <div class="feature-card__icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="feature-card__title">AI Ready Platform</h3>
+          <p class="feature-card__description">Built to power future AI-driven insights and predictive health alerts.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">Simple Process</span>
+        <h2 class="section-heading__title">How LifeChain AI Works</h2>
+        <p class="section-heading__subtitle">From registration to emergency response in five seamless steps.</p>
+      </div>
+
+      <ol class="timeline" id="timeline">
+        <li class="timeline__step" id="step-register">
+          <div class="timeline__marker">01</div>
+          <div class="timeline__content">
+            <h3 class="timeline__title">Register</h3>
+            <p class="timeline__description">Create your free LifeChain AI account in under two minutes.</p>
+          </div>
+        </li>
+
+        <li class="timeline__step" id="step-enter-details">
+          <div class="timeline__marker">02</div>
+          <div class="timeline__content">
+            <h3 class="timeline__title">Enter Medical Details</h3>
+            <p class="timeline__description">Add allergies, conditions, medications, and emergency contacts.</p>
+          </div>
+        </li>
+
+        <li class="timeline__step" id="step-generate-qr">
+          <div class="timeline__marker">03</div>
+          <div class="timeline__content">
+            <h3 class="timeline__title">Generate QR Code</h3>
+            <p class="timeline__description">Your encrypted personal QR medical identity is created instantly.</p>
+          </div>
+        </li>
+
+        <li class="timeline__step" id="step-hospital-scan">
+          <div class="timeline__marker">04</div>
+          <div class="timeline__content">
+            <h3 class="timeline__title">Hospital Scans QR</h3>
+            <p class="timeline__description">Any connected hospital can scan your code in an emergency.</p>
+          </div>
+        </li>
+
+        <li class="timeline__step" id="step-doctor-views">
+          <div class="timeline__marker">05</div>
+          <div class="timeline__content">
+            <h3 class="timeline__title">Doctor Views Emergency Medical Profile</h3>
+            <p class="timeline__description">Doctors access your critical profile instantly to make informed decisions.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- QR Code Showcase Section -->
+    <section id="qr-showcase" class="qr-showcase-section">
+      <div class="qr-showcase-section__container">
+        <div class="qr-showcase-section__visual">
+          <div class="qr-showcase-section__card">
+            <div class="qr-showcase-section__qr-placeholder" id="demo-qr-code" aria-hidden="true"></div>
+            <div class="qr-showcase-section__scan-overlay" id="qr-scan-overlay" aria-hidden="true"></div>
+            <p class="qr-showcase-section__patient-id" id="demo-patient-id">Patient ID: LC-000000</p>
+          </div>
+          <div class="qr-showcase-section__actions">
+            <button id="download-qr-btn" class="btn btn--primary">
+              <i class="fa-solid fa-download"></i> Download QR
+            </button>
+            <button id="print-qr-btn" class="btn btn--outline">
+              <i class="fa-solid fa-print"></i> Print QR
+            </button>
+          </div>
+        </div>
+
+        <div class="qr-showcase-section__content">
+          <span class="section-heading__eyebrow">Your Medical Identity, Scannable</span>
+          <h2 class="section-heading__title">One Code. Your Entire Medical Story.</h2>
+          <p class="qr-showcase-section__description">
+            Every LifeChain AI passport is bound to a unique, encrypted QR code. Print it, save it to your
+            phone, or wear it — hospitals scan it once and instantly see everything they need to treat you
+            safely and quickly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blood Donor Network Section -->
+    <section id="blood-donor-network" class="blood-donor-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">Community Powered</span>
+        <h2 class="section-heading__title">Blood Donor Network</h2>
+        <p class="section-heading__subtitle">Find verified donors near you, ready to help when it counts.</p>
+      </div>
+
+      <form class="blood-donor-section__search" id="donor-search-form">
+        <div class="blood-donor-section__search-field">
+          <label for="blood-group-select" class="visually-hidden">Search by blood group</label>
+          <select id="blood-group-select" name="bloodGroup" class="form-select">
+            <option value="">Blood Group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+
+        <div class="blood-donor-section__search-field">
+          <label for="city-input" class="visually-hidden">Search by city</label>
+          <input type="text" id="city-input" name="city" class="form-input" placeholder="Search by City">
+        </div>
+
+        <button type="submit" id="donor-search-btn" class="btn btn--primary">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+
+      <div class="blood-donor-section__grid" id="donor-cards-grid">
+        <article class="donor-card" id="donor-card-1">
+          <div class="donor-card__header">
+            <h3 class="donor-card__name">Ananya Rao</h3>
+            <span class="donor-card__blood-group">O+</span>
+          </div>
+          <p class="donor-card__location"><i class="fa-solid fa-location-dot"></i> Chennai, TN</p>
+          <p class="donor-card__availability donor-card__availability--available">Available</p>
+          <button class="btn btn--outline donor-card__contact-btn">Contact</button>
+        </article>
+
+        <article class="donor-card" id="donor-card-2">
+          <div class="donor-card__header">
+            <h3 class="donor-card__name">Rohan Mehta</h3>
+            <span class="donor-card__blood-group">B-</span>
+          </div>
+          <p class="donor-card__location"><i class="fa-solid fa-location-dot"></i> Mumbai, MH</p>
+          <p class="donor-card__availability donor-card__availability--unavailable">Unavailable</p>
+          <button class="btn btn--outline donor-card__contact-btn">Contact</button>
+        </article>
+
+        <article class="donor-card" id="donor-card-3">
+          <div class="donor-card__header">
+            <h3 class="donor-card__name">Fatima Sheikh</h3>
+            <span class="donor-card__blood-group">AB+</span>
+          </div>
+          <p class="donor-card__location"><i class="fa-solid fa-location-dot"></i> Hyderabad, TS</p>
+          <p class="donor-card__availability donor-card__availability--available">Available</p>
+          <button class="btn btn--outline donor-card__contact-btn">Contact</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Emergency Access Section -->
+    <section id="emergency-access" class="emergency-access-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">For Hospitals & First Responders</span>
+        <h2 class="section-heading__title">Instant Emergency Access</h2>
+        <p class="section-heading__subtitle">Retrieve a patient's critical medical profile in seconds.</p>
+      </div>
+
+      <div class="emergency-access-section__container">
+        <div class="emergency-access-section__lookup">
+          <label for="patient-id-input" class="visually-hidden">Enter Patient ID</label>
+          <input type="text" id="patient-id-input" class="form-input" placeholder="Enter Patient ID">
+
+          <button id="scan-qr-btn" class="btn btn--outline">
+            <i class="fa-solid fa-qrcode"></i> Scan QR Code
+          </button>
+
+          <div class="emergency-access-section__scanner-placeholder" id="qr-scanner-placeholder" aria-hidden="true"></div>
+
+          <button id="view-profile-btn" class="btn btn--primary">
+            <i class="fa-solid fa-file-waveform"></i> View Emergency Medical Profile
+          </button>
+        </div>
+
+        <article class="emergency-profile-card" id="emergency-profile-card">
+          <header class="emergency-profile-card__header">
+            <h3 class="emergency-profile-card__title">Emergency Medical Profile</h3>
+            <span class="emergency-profile-card__badge">Live Preview</span>
+          </header>
+
+          <dl class="emergency-profile-card__grid">
+            <div class="emergency-profile-card__item" id="profile-name">
+              <dt>Name</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-age">
+              <dt>Age</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-blood-group">
+              <dt>Blood Group</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-allergies">
+              <dt>Allergies</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-diseases">
+              <dt>Existing Diseases</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-medications">
+              <dt>Current Medications</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-emergency-contacts">
+              <dt>Emergency Contacts</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-organ-donor">
+              <dt>Organ Donor Status</dt>
+              <dd>—</dd>
+            </div>
+            <div class="emergency-profile-card__item" id="profile-blood-donor">
+              <dt>Blood Donor Status</dt>
+              <dd>—</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- Hospital Locator Section -->
+    <section id="hospital-locator" class="hospital-locator-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">Connected Network</span>
+        <h2 class="section-heading__title">Find Hospitals Near You</h2>
+        <p class="section-heading__subtitle">Every LifeChain-connected hospital, ready to respond.</p>
+      </div>
+
+      <div class="hospital-locator-section__grid" id="hospital-cards-grid">
+        <article class="hospital-card" id="hospital-card-1">
+          <h3 class="hospital-card__name">Meridian Emergency Care</h3>
+          <p class="hospital-card__distance"><i class="fa-solid fa-route"></i> 2.4 km away</p>
+          <p class="hospital-card__contact"><i class="fa-solid fa-phone"></i> +91 44 1234 5678</p>
+          <button class="btn btn--outline hospital-card__directions-btn">Get Directions</button>
+        </article>
+
+        <article class="hospital-card" id="hospital-card-2">
+          <h3 class="hospital-card__name">Havenbrook Trauma Center</h3>
+          <p class="hospital-card__distance"><i class="fa-solid fa-route"></i> 4.1 km away</p>
+          <p class="hospital-card__contact"><i class="fa-solid fa-phone"></i> +91 44 8765 4321</p>
+          <button class="btn btn--outline hospital-card__directions-btn">Get Directions</button>
+        </article>
+
+        <article class="hospital-card" id="hospital-card-3">
+          <h3 class="hospital-card__name">City General Hospital</h3>
+          <p class="hospital-card__distance"><i class="fa-solid fa-route"></i> 6.8 km away</p>
+          <p class="hospital-card__contact"><i class="fa-solid fa-phone"></i> +91 44 5566 7788</p>
+          <button class="btn btn--outline hospital-card__directions-btn">Get Directions</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Future Vision Section -->
+    <section id="future-vision" class="future-vision-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">What's Next</span>
+        <h2 class="section-heading__title">The Future of LifeChain AI</h2>
+        <p class="section-heading__subtitle">Building toward a smarter, fully connected healthcare ecosystem.</p>
+      </div>
+
+      <div class="future-vision-section__grid">
+        <article class="future-card" id="future-ai-prediction">
+          <div class="future-card__icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <h3 class="future-card__title">AI Disease Prediction</h3>
+          <p class="future-card__description">Predictive models that flag health risks before they become emergencies.</p>
+        </article>
+
+        <article class="future-card" id="future-smart-ambulance">
+          <div class="future-card__icon"><i class="fa-solid fa-truck-medical"></i></div>
+          <h3 class="future-card__title">Smart Ambulance Integration</h3>
+          <p class="future-card__description">Ambulance crews access patient profiles en route, before arrival.</p>
+        </article>
+
+        <article class="future-card" id="future-digital-records">
+          <div class="future-card__icon"><i class="fa-solid fa-folder-medical"></i></div>
+          <h3 class="future-card__title">Digital Health Records</h3>
+          <p class="future-card__description">A complete, portable health record shared securely across providers.</p>
+        </article>
+
+        <article class="future-card" id="future-government-integration">
+          <div class="future-card__icon"><i class="fa-solid fa-landmark"></i></div>
+          <h3 class="future-card__title">Government Health Integration</h3>
+          <p class="future-card__description">Interoperability with national health databases and public health systems.</p>
+        </article>
+
+        <article class="future-card" id="future-wearable-integration">
+          <div class="future-card__icon"><i class="fa-solid fa-watch-fitness"></i></div>
+          <h3 class="future-card__title">Wearable Device Integration</h3>
+          <p class="future-card__description">Live vitals from wearables feeding directly into your emergency profile.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">Trusted In Critical Moments</span>
+        <h2 class="section-heading__title">What Doctors & Patients Say</h2>
+      </div>
+
+      <div class="testimonials-section__grid">
+        <article class="testimonial-card" id="testimonial-1">
+          <i class="fa-solid fa-quote-left testimonial-card__quote-icon"></i>
+          <p class="testimonial-card__text">Scanning a patient's LifeChain code the moment they arrive gives us allergy and medication details before we even start treatment. It changes how fast we can act.</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"><i class="fa-solid fa-user-doctor"></i></div>
+            <div>
+              <p class="testimonial-card__name">Dr. Kavya Iyer</p>
+              <p class="testimonial-card__role">Emergency Medicine, Meridian Emergency Care</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card" id="testimonial-2">
+          <i class="fa-solid fa-quote-left testimonial-card__quote-icon"></i>
+          <p class="testimonial-card__text">After my father's accident, the responding team scanned his card and immediately knew about his heart condition and medications. It genuinely felt like it bought us time.</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
+            <div>
+              <p class="testimonial-card__name">Rahul Nair</p>
+              <p class="testimonial-card__role">LifeChain AI User</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card" id="testimonial-3">
+          <i class="fa-solid fa-quote-left testimonial-card__quote-icon"></i>
+          <p class="testimonial-card__text">Coordinating blood donors used to mean dozens of phone calls. Now our team searches the network directly and gets verified, available donors in minutes.</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"><i class="fa-solid fa-user-nurse"></i></div>
+            <div>
+              <p class="testimonial-card__name">Sr. Meera Pillai</p>
+              <p class="testimonial-card__role">Blood Bank Coordinator, Havenbrook Trauma Center</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">Common Questions</span>
+        <h2 class="section-heading__title">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-section__list" id="faq-list">
+        <article class="faq-item is-open" id="faq-item-1">
+          <button class="faq-item__question" aria-expanded="true" aria-controls="faq-answer-1">
+            <span>Is my medical data secure with LifeChain AI?</span>
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer" id="faq-answer-1">
+            <p>Yes. Your profile is encrypted end-to-end, and only authorized, connected hospitals can decode your QR passport during an active emergency lookup.</p>
+          </div>
+        </article>
+
+        <article class="faq-item" id="faq-item-2">
+          <button class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-2">
+            <span>What happens if I lose my QR card?</span>
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer" id="faq-answer-2">
+            <p>You can instantly regenerate or revoke a QR code from your account dashboard. The old code stops working the moment a new one is issued.</p>
+          </div>
+        </article>
+
+        <article class="faq-item" id="faq-item-3">
+          <button class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-3">
+            <span>Which hospitals can scan my profile?</span>
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer" id="faq-answer-3">
+            <p>Only hospitals registered and verified on the LifeChain network can perform an emergency scan and lookup, and every scan is logged to your account.</p>
+          </div>
+        </article>
+
+        <article class="faq-item" id="faq-item-4">
+          <button class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-4">
+            <span>Is LifeChain AI free to use?</span>
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer" id="faq-answer-4">
+            <p>Registration, your medical profile, and your QR passport are free for every individual. Hospitals join through a separate network partnership plan.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">About Us</span>
+        <h2 class="section-heading__title">Built to Save Time When Time Saves Lives</h2>
+      </div>
+
+      <div class="about-section__grid">
+        <article class="about-card" id="about-mission">
+          <div class="about-card__icon"><i class="fa-solid fa-bullseye"></i></div>
+          <h3 class="about-card__title">Mission</h3>
+          <p class="about-card__description">To give every person a secure, instantly accessible medical identity that can be trusted in a crisis.</p>
+        </article>
+
+        <article class="about-card" id="about-vision">
+          <div class="about-card__icon"><i class="fa-solid fa-eye"></i></div>
+          <h3 class="about-card__title">Vision</h3>
+          <p class="about-card__description">A world where no life is lost to missing medical information.</p>
+        </article>
+
+        <article class="about-card" id="about-why-lifechain">
+          <div class="about-card__icon"><i class="fa-solid fa-star"></i></div>
+          <h3 class="about-card__title">Why LifeChain AI</h3>
+          <p class="about-card__description">Built with hospitals, paramedics, and patients in mind — fast, secure, and always accessible.</p>
+        </article>
+
+        <article class="about-card" id="about-objectives">
+          <div class="about-card__icon"><i class="fa-solid fa-list-check"></i></div>
+          <h3 class="about-card__title">Project Objectives</h3>
+          <p class="about-card__description">Connect hospitals, donors, and patients on one secure emergency response platform.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="section-heading">
+        <span class="section-heading__eyebrow">Get In Touch</span>
+        <h2 class="section-heading__title">Contact LifeChain AI</h2>
+        <p class="section-heading__subtitle">Questions, partnerships, or feedback — we'd love to hear from you.</p>
+      </div>
+
+      <form class="contact-form" id="contact-form">
+        <div class="contact-form__field">
+          <label for="contact-name" class="contact-form__label">Name</label>
+          <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your full name" required>
+          <span class="contact-form__error" id="contact-name-error"></span>
+        </div>
+
+        <div class="contact-form__field">
+          <label for="contact-email" class="contact-form__label">Email</label>
+          <input type="email" id="contact-email" name="email" class="form-input" placeholder="you@example.com" required>
+          <span class="contact-form__error" id="contact-email-error"></span>
+        </div>
+
+        <div class="contact-form__field">
+          <label for="contact-subject" class="contact-form__label">Subject</label>
+          <input type="text" id="contact-subject" name="subject" class="form-input" placeholder="What's this about?" required>
+          <span class="contact-form__error" id="contact-subject-error"></span>
+        </div>
+
+        <div class="contact-form__field">
+          <label for="contact-message" class="contact-form__label">Message</label>
+          <textarea id="contact-message" name="message" class="form-textarea" rows="5" placeholder="Write your message here..." required></textarea>
+          <span class="contact-form__error" id="contact-message-error"></span>
+        </div>
+
+        <button type="submit" id="contact-send-btn" class="btn btn--primary btn--large">
+          <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="site-footer" class="site-footer">
+    <div class="site-footer__container">
+      <div class="site-footer__brand">
+        <div class="site-footer__logo">
+          <i class="fa-solid fa-heart-circle-bolt"></i>
+          <span>LifeChain <span class="main-nav__logo-accent">AI</span></span>
+        </div>
+        <p class="site-footer__tagline">Your medical identity, ready when it matters most.</p>
+      </div>
+
+      <nav class="site-footer__links" aria-label="Footer quick links">
+        <h4 class="site-footer__heading">Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#blood-donor-network">Blood Donor Network</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-footer__emergency">
+        <h4 class="site-footer__heading">Emergency Contact</h4>
+        <p><i class="fa-solid fa-phone-volume"></i> 24/7 Helpline: 1800-000-1234</p>
+        <p><i class="fa-solid fa-envelope"></i> emergency@lifechain.ai</p>
+      </div>
+
+      <div class="site-footer__social">
+        <h4 class="site-footer__heading">Follow Us</h4>
+        <div class="site-footer__social-icons">
+          <a href="#" class="site-footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="site-footer__social-link" aria-label="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="site-footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="site-footer__social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>&copy; <span id="current-year">2026</span> LifeChain AI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
